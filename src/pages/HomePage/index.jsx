@@ -1,3 +1,5 @@
+// HomePage - rodič
+
 import { useState, useEffect } from 'react';
 import { Candidate } from '../../components/Candidate';
 import './style.css';
@@ -11,7 +13,12 @@ export const HomePage = () => {
     { name: "Markéta Smetana", avatar: '/avatars/candidate02.png' },
     { name: "Beáta Skočdopolová", avatar: '/avatars/candidate03.png' },
     { name: "Lubomír Poňuchálek", avatar: '/avatars/candidate04.png' },
-  ]), []);
+  ]), []); // simulace, nemusíme se jí trápit
+
+  const handleVote = (name) => {
+    setPresident(name)
+  } // funkce, do které se přidá jméno kandidáta, a mění její hodnotu (?)
+  // ta funkce se předá do potomka
   
   return (
     <div className="container">
@@ -29,11 +36,12 @@ export const HomePage = () => {
       
       <h2>Kandidáti</h2>
       <div className="candidate-list">
-        {candidates.map((c) => (
+        {candidates.map((c) => ( 
           <Candidate 
-            key={c.name}
+            key={c.name} 
             name={c.name} 
             avatar={c.avatar} 
+            onVote={handleVote} // posíláme funkci jako prop (bez závorek), aby se hned nespustila
           />
         ))}
       </div>
